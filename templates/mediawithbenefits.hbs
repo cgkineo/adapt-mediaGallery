@@ -1,0 +1,51 @@
+<div class="media__inner component__inner" role="region" aria-label="{{_globals._components._mediaWithBenefits.ariaRegion}} {{#if _media.transcriptLink}}{{_globals._components._media.transcriptButton}}{{/if}}" {{#if _globals._components._media.ariaRegion}}tabindex="0"{{/if}}>
+    {{> component this}}
+    <div class="media__widget component__widget a11y-ignore-aria">
+
+    <div class="mwb-item-container">
+      {{#each _items}}
+        {{!-- 'fixed' class is a hack to stop jquery.a11y.js::limitedScrollTo calling window.scrollTo and breaking clicks --}}
+        <button id="{{../_id}}-{{@index}}-mwb-item" class="base fixed mwb-item {{#if _isVisited}}visited{{/if}}" data-index="{{@index}}" aria-label="{{ariaLabel}}">
+          <div class="mwb-item-image" style="background-image: url({{_graphic.src}})"></div>
+          <div class="mwb-item-title">
+              {{{title}}}
+          </div>
+          <div class="mwb-item-subtitle">
+              {{{subtitle}}}
+          </div>
+        </button>
+      {{/each}}
+    </div>
+
+    {{#if _media.mp3}}
+      <audio src="{{_media.mp3}}" type="audio/mp3" style="width: 100%; height: 100%;"/>
+    {{else}}
+      {{#if _media.ogg}}
+        <audio src="{{_media.ogg}}" type="audio/ogg" style="width: 100%; height: 100%;"/>
+      {{else}}
+        <video preload="none" width="640" height="360" {{#if _playsinline}}playsinline{{/if}} {{#if_value_equals _media.type "video/vimeo"}}{{else}}poster="{{_media.poster}}"{{/if_value_equals}} style="width:100%; height:100%;" controls="controls">
+          {{#if _media.source}}
+            <source src="{{_media.source}}" type="{{_media.type}}"/>
+          {{else}}
+            {{#if _media.mp4}}
+              <source src="{{_media.mp4}}" type="video/mp4"/>
+            {{/if}}
+            {{#if _media.ogv}}
+              <source src="{{_media.ogv}}" type="video/ogg"/>
+            {{/if}}
+            {{#if _media.webm}}
+              <source src="{{_media.webm}}" type="video/webm"/>
+            {{/if}}
+          {{/if}}
+          {{#if _useClosedCaptions}}
+              {{> mediaTracks _media.cc}}
+          {{/if}}
+        </video>
+      {{/if}}
+    {{/if}}
+    </div>
+
+    <div class="media__transcript-container">
+    </div>
+    
+</div>
