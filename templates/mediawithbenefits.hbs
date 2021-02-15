@@ -1,20 +1,37 @@
-<div class="media__inner component__inner" role="region" aria-label="{{_globals._components._mediaWithBenefits.ariaRegion}} {{#if _media.transcriptLink}}{{_globals._components._media.transcriptButton}}{{/if}}" {{#if _globals._components._media.ariaRegion}}tabindex="0"{{/if}}>
+<div class="component__inner media__inner" role="region" aria-label="{{_globals._components._mediaWithBenefits.ariaRegion}} {{#if _media.transcriptLink}}{{_globals._components._media.transcriptButton}}{{/if}}" {{#if _globals._components._media.ariaRegion}}tabindex="0"{{/if}}>
     {{> component this}}
-    <div class="media__widget component__widget a11y-ignore-aria">
+    <div class="component__widget media__widget a11y-ignore-aria">
 
-    <div class="mwb-item-container">
+    <div class="mediawithbenefits__item-container">
+
       {{#each _items}}
-        {{!-- 'fixed' class is a hack to stop jquery.a11y.js::limitedScrollTo calling window.scrollTo and breaking clicks --}}
-        <button id="{{../_id}}-{{@index}}-mwb-item" class="base fixed mwb-item {{#if _isVisited}}visited{{/if}}" data-index="{{@index}}" aria-label="{{ariaLabel}}">
-          <div class="mwb-item-image" style="background-image: url({{_graphic.src}})"></div>
-          <div class="mwb-item-title">
+        <button id="{{../_id}}-{{@index}}-mwb-item" class="mediawithbenefits__item js-mediawithbenefits-item{{#if _isVisited}} is-visited{{/if}}" data-index="{{@index}}" aria-label="{{ariaLabel}}">
+
+          {{#if _graphic.src}}
+          <div class="mediawithbenefits__item-image-container">
+            <img class="mediawithbenefits__item-image" src="{{_graphic.src}}">
+          </div>
+          {{/if}}
+
+          {{#if title}}
+          <div class="mediawithbenefits__item-title">
+            <div class="mediawithbenefits__item-title-inner">
               {{{title}}}
+            </div>
           </div>
-          <div class="mwb-item-subtitle">
+          {{/if}}
+
+          {{#if subtitle}}
+          <div class="mediawithbenefits__item-subtitle">
+            <div class="mediawithbenefits__item-subtitle-inner">
               {{{subtitle}}}
+            </div>
           </div>
+          {{/if}}
+
         </button>
       {{/each}}
+
     </div>
 
     {{#if _media.mp3}}
@@ -45,7 +62,6 @@
     {{/if}}
     </div>
 
-    <div class="media__transcript-container">
-    </div>
-    
+    <div class="media__transcript-container"></div>
+
 </div>

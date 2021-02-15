@@ -1,72 +1,57 @@
 .mediawithbenefits {
+  &__item-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
 
-	.mwb-item-container {
-		text-align: center;  
-		display: -ms-flexbox;  /* TWEENER - IE 10 */
-		display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-		display: flex;   
+  &__item {
+    width: calc(~'25% - 1rem');
+    margin: 1rem auto;
+    background: none;
+  }
 
-		flex-wrap: wrap;
+  .no-touch &__item:hover &__item-image {
+    .transform(scale(0.95));
+  }
 
-		align-items: flex-start;
+  &__item.is-selected &__item-image {
+    .transform(scale(0.95));
+  }
 
-		justify-content: -ms-space-between;
-		justify-content: -webkit-space-between;
-		justify-content: space-between;
+  &__item-image {
+    .transition(all .2s ease);
+  }
+}
 
-		.mwb-item {
-			width: 160px;
-			margin: 20px auto 0px;
-			background: none;
+// THEME
+// --------------------------------------------------
+.mediawithbenefits {
+  &__item-container {
+    text-align: center;
+  }
 
-			.mwb-item-image {
-				width: 100%;
-				height: 100px;
-				margin-bottom: 5px;
-				transition: all 350ms ease-in-out;
-				background-repeat: no-repeat;
-				background-size: cover;
-			}
+  &__item-title {
+    margin-top: @component-title-margin / 2;
+    .item-title;
+    text-align: center;
+  }
 
-			.mwb-item-title {
-				color: @theme-black;
-				font-family: @font-headings;
-				font-size: 18px;
-				line-height: @title-line-height;
-				text-align: center;
-			}
+  &__item-subtitle {
+    margin-top: @component-body-margin / 2;
+    text-align: center;
+  }
 
-			.mwb-item-subtitle {
-				color: @theme-black;
-				font-family: @font-body;
-				font-size: 16px;
-				line-height: @title-line-height;
-				text-align: center;
-			}
+  &__item-image {
+    border: 3px solid @item-color;
+  }
 
-			.no-touch &:hover {
-				.mwb-item-image {
-					transform: scale(0.96);	
-					outline: 4px solid @primary-color;
-				}
-			}
+  .no-touch &__item:hover &__item-image {
+    border-color: @item-color-hover;
+  }
 
-			&.visited {
-				filter: grayscale(80%);;
-			}
-
-			&.selected {
-				filter: grayscale(0%);
-
-				.mwb-item-image {
-					// transform: scale(0.95);	
-					outline: 4px solid @primary-color;
-				}
-			}
-		}
-	}
-
-	.mejs-container {
-		margin-top: 20px;
-	}
+  &__item.is-visited &__item-image {
+    border-color: @visited;
+  }
 }
