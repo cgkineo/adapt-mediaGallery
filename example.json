@@ -30,13 +30,8 @@
                     ]
                 },
                 "_transcript": {
-                    "_inlineTranscript": true,
-                    "_externalTranscript": false,
-                    "inlineTranscriptButton": "Transcript",
-                    "inlineTranscriptCloseButton": "Close Transcript",
-                    "inlineTranscriptBody": "Transcript body 1",
-                    "transcriptLinkButton": "Transcript",
-                    "transcriptLink": "assets/transcript.pdf"
+                    "_comment._inlineTranscript": "Enable item transcript",
+                    "_inlineTranscript": true
                 },
                 "_graphic": {
                     "src": "course/en/video/video1_thumb.png"
@@ -57,6 +52,7 @@
                     ]
                 },
                 "_transcript": {
+                    "_comment._inlineTranscript": "Enable item transcript with overrides",
                     "_inlineTranscript": true,
                     "_externalTranscript": false,
                     "inlineTranscriptButton": "Transcript",
@@ -73,6 +69,7 @@
                 "ariaLabel": "Select this to hear from Speaker 2"
             }
         ],
+        "_comment._transcript": "Global transcript",
         "_transcript": {
             "_setCompletionOnView": true,
             "_inlineTranscript": true,
@@ -82,42 +79,8 @@
             "inlineTranscriptBody": "Transcript body text should go here",
             "transcriptLinkButton": "Transcript",
             "transcriptLink": "assets/transcript.pdf"
-        },
-        "_playerOptions": {
-            "poster": "",
-            "showPosterWhenEnded": false,
-            "defaultVideoWidth": 480,
-            "defaultVideoHeight": 270,
-            "videoWidth": -1,
-            "videoHeight": -1,
-            "defaultAudioWidth": 400,
-            "defaultAudioHeight": 30,
-            "defaultSeekBackwardInterval": "(media.duration * 0.05)",
-            "defaultSeekForwardInterval": "(media.duration * 0.05)",
-            "audioWidth": -1,
-            "audioHeight": -1,
-            "startVolume": 0.8,
-            "loop": false,
-            "autoRewind": true,
-            "enableAutosize": true,
-            "alwaysShowHours": false,
-            "showTimecodeFrameCount": false,
-            "framesPerSecond": 25,
-            "autosizeProgress" : true,
-            "alwaysShowControls": false,
-            "hideVideoControlsOnLoad": false,
-            "clickToPlayPause": true,
-            "iPadUseNativeControls": false,
-            "iPhoneUseNativeControls": false,
-            "AndroidUseNativeControls": false,
-            "features": ["playpause","current","progress","duration","tracks","volume","fullscreen"],
-            "isVideo": true,
-            "enableKeyboard": true,
-            "pauseOtherPlayers": true,
-            "startLanguage": "",
-            "tracksText": "mejs.i18n.t('Captions/Subtitles')",
-            "hideCaptionsButtonWhenEmpty": true,
-            "toggleCaptionsButtonWhenOnlyOne": false,
-            "slidesSelector": ""
         }
     }
+
+    // For additional player options please refer to the media components example json
+    // https://github.com/adaptlearning/adapt-contrib-media/blob/master/example.json
