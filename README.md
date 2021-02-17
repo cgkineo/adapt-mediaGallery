@@ -4,10 +4,6 @@ This component extends the functionality of `adapt-contrib-media` by providing a
 
 This component supports the same device and browser specification as `adapt-contrib-media` and is accessible. Accordingly it follows a similar configuration (see `example.json`). See the `README` of `adapt-contrib-media` for further details.
 
-# Notes
-
-Gallery buttons require the `fixed` class to prevent `jquery.a11y.js::limitedScrollTo` calling `window.scrollTo`; which causes an unnecessary scroll and prevents the click handlers from working.
-
 # Todo
 
 - add YouTube/Vimeo/ogg/mp3 support
