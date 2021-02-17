@@ -1,18 +1,13 @@
 {
   "name": "adapt-mediaWithBenefits",
-  "version": "0.0.2",
-  "framework": ">=5",
+  "version": "1.0.0",
+  "framework": ">=5.3",
   "homepage": "https://github.com/cgkineo/adapt-mediaWithBenefits",
   "issues": "https://github.com/cgkineo/adapt-mediaWithBenefits/issues/ ",
   "component": "mediawithbenefits",
   "displayName": "Media with benefits",
   "description": "Extends the functionality of adapt-contrib-media by providing a gallery of videos",
   "main": "/js/adapt-mediaWithBenefits.js",
-  "assetFields" : [
-    "_media.ogv",
-    "_media.mp4",
-    "_media.poster"
-  ],
   "keywords": [
     "adapt-plugin",
     "adapt-component"
