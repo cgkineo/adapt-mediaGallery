@@ -30,7 +30,7 @@
                     ]
                 },
                 "_transcript": {
-                    "_comment._inlineTranscript": "Enable item transcript",
+                    "_comment": "_inlineTranscript = Enable item transcript",
                     "_inlineTranscript": true
                 },
                 "_graphic": {
@@ -52,7 +52,7 @@
                     ]
                 },
                 "_transcript": {
-                    "_comment._inlineTranscript": "Enable item transcript with overrides",
+                    "_comment": "_inlineTranscript = Enable item transcript with overrides",
                     "_inlineTranscript": true,
                     "_externalTranscript": false,
                     "inlineTranscriptButton": "Transcript",
@@ -69,7 +69,7 @@
                 "ariaLabel": "Select this to hear from Speaker 2"
             }
         ],
-        "_comment._transcript": "Global transcript",
+        "_comment": "_transcript = Global transcript",
         "_transcript": {
             "_setCompletionOnView": true,
             "_inlineTranscript": true,
