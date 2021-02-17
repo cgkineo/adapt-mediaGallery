@@ -1,46 +1,52 @@
-<div class="component__inner media__inner" role="region" aria-label="{{_globals._components._mediaWithBenefits.ariaRegion}} {{#if _media.transcriptLink}}{{_globals._components._media.transcriptButton}}{{/if}}" {{#if _globals._components._media.ariaRegion}}tabindex="0"{{/if}}>
-    {{> component this}}
-    <div class="component__widget media__widget a11y-ignore-aria">
+{{import_globals}}
+<div class="component__inner media__inner">
+
+  {{> component this}}
+
+  <div class="component__widget media__widget">
 
     <div class="mediawithbenefits__item-container">
 
       {{#each _items}}
-        <button id="{{../_id}}-{{@index}}-mwb-item" class="mediawithbenefits__item js-mediawithbenefits-item{{#if _isVisited}} is-visited{{/if}}" data-index="{{@index}}" aria-label="{{ariaLabel}}">
+      <button id="{{../_id}}-{{@index}}-mwb-item" class="mediawithbenefits__item js-mediawithbenefits-item{{#if _isVisited}} is-visited{{/if}}" data-index="{{@index}}" aria-label="{{ariaLabel}}">
 
-          {{#if _graphic.src}}
-          <div class="mediawithbenefits__item-image-container">
-            <img class="mediawithbenefits__item-image" src="{{_graphic.src}}">
+        {{#if _graphic.src}}
+        <div class="mediawithbenefits__item-image-container">
+          <img class="mediawithbenefits__item-image" src="{{_graphic.src}}">
+        </div>
+        {{/if}}
+
+        {{#if title}}
+        <div class="mediawithbenefits__item-title">
+          <div class="mediawithbenefits__item-title-inner">
+            {{{title}}}
           </div>
-          {{/if}}
+        </div>
+        {{/if}}
 
-          {{#if title}}
-          <div class="mediawithbenefits__item-title">
-            <div class="mediawithbenefits__item-title-inner">
-              {{{title}}}
-            </div>
+        {{#if subtitle}}
+        <div class="mediawithbenefits__item-subtitle">
+          <div class="mediawithbenefits__item-subtitle-inner">
+            {{{subtitle}}}
           </div>
-          {{/if}}
+        </div>
+        {{/if}}
 
-          {{#if subtitle}}
-          <div class="mediawithbenefits__item-subtitle">
-            <div class="mediawithbenefits__item-subtitle-inner">
-              {{{subtitle}}}
-            </div>
-          </div>
-          {{/if}}
-
-        </button>
+      </button>
       {{/each}}
 
     </div>
 
     {{#if _media.mp3}}
+      {{#if _media.poster}}
+      <img class="media_poster is-audio" src="{{_media.poster}}">
+      {{/if}}
       <audio src="{{_media.mp3}}" type="audio/mp3" style="width: 100%; height: 100%;"/>
     {{else}}
       {{#if _media.ogg}}
         <audio src="{{_media.ogg}}" type="audio/ogg" style="width: 100%; height: 100%;"/>
       {{else}}
-        <video preload="none" width="640" height="360" {{#if _playsinline}}playsinline{{/if}} {{#if_value_equals _media.type "video/vimeo"}}{{else}}poster="{{_media.poster}}"{{/if_value_equals}} style="width:100%; height:100%;" controls="controls">
+        <video aria-hidden="true" preload="none" width="640" height="360" {{#if _playsinline}}playsinline{{/if}} {{#equals _media.type "video/vimeo"}}{{else}}poster="{{_media.poster}}"{{/equals}} style="width:100%; height:100%;" controls="controls">
           {{#if _media.source}}
             <source src="{{_media.source}}" type="{{_media.type}}"/>
           {{else}}
@@ -55,13 +61,14 @@
             {{/if}}
           {{/if}}
           {{#if _useClosedCaptions}}
-              {{> mediaTracks _media.cc}}
+            {{> mediaTracks _media.cc}}
           {{/if}}
         </video>
       {{/if}}
     {{/if}}
-    </div>
 
-    <div class="media__transcript-container"></div>
+  </div>
+
+  <div class="media__transcript-container"></div>
 
 </div>
