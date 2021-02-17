@@ -28,30 +28,28 @@
 // THEME
 // --------------------------------------------------
 .mediawithbenefits {
-  &__item-container {
-    text-align: center;
-  }
-
   &__item-title {
     margin-top: @component-title-margin / 2;
     .item-title;
-    text-align: center;
   }
 
   &__item-subtitle {
     margin-top: @component-body-margin / 2;
-    text-align: center;
   }
 
   &__item-image {
     border: 3px solid @item-color;
   }
 
-  .no-touch &__item:hover &__item-image {
+  .no-touch &__item:not(.is-selected):hover &__item-image {
     border-color: @item-color-hover;
   }
 
   &__item.is-visited &__item-image {
     border-color: @visited;
+  }
+
+  &__item.is-selected &__item-image {
+    border-color: @item-color-selected;
   }
 }
