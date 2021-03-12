@@ -147,7 +147,8 @@ define([
     onToggleInlineTranscript: function(event) {
       this.markItemAsWatched();
 
-      if (event) event.preventDefault();
+      if (event && event.preventDefault) event.preventDefault();
+
       var $transcriptBodyContainer = this.$('.media__transcript-body-inline');
       var $button = this.$('.media__transcript-btn-inline');
       var $buttonText = this.$('.media__transcript-btn-inline .media__transcript-btn-text');
@@ -158,14 +159,16 @@ define([
         }).removeClass('inline-transcript-open');
         $button.attr('aria-expanded', false);
         $buttonText.html(this.model.get('_transcript').inlineTranscriptButton);
-      } else {
-        $transcriptBodyContainer.stop(true, true).slideDown(function() {
-          $(window).resize();
-        }).addClass('inline-transcript-open');
-        $button.attr('aria-expanded', true);
-        $buttonText.html(this.model.get('_transcript').inlineTranscriptCloseButton);
-        this.checkCompletionByTranscript();
+        return;
       }
+
+      $transcriptBodyContainer.stop(true, true).slideDown(function() {
+        $(window).resize();
+      }).addClass('inline-transcript-open');
+      $button.attr('aria-expanded', true);
+      $buttonText.html(this.model.get('_transcript').inlineTranscriptCloseButton);
+
+      this.checkCompletionByTranscript();
     },
 
     onExternalTranscriptClicked: function(event) {
