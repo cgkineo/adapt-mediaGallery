@@ -109,19 +109,20 @@ define([
         this.$('.media__transcript-container').empty();
       }
 
-      // setup poster image
+      const $mediaElement = $(this.mediaElement);
 
-      $(this.mediaElement).attr('poster', itemCfg._media.poster);
+      // setup poster image
+      $mediaElement.attr('poster', itemCfg._media.poster);
       this.mediaElement.player.setPoster(itemCfg._media.poster);
 
+      // and closed captions
       var selectedTrack = this.mediaElement.player.selectedTrack;
       var selectedLang = selectedTrack ? selectedTrack.srclang || 'none' : 'none';
-
       // restore last language selection if applicable
       this.mediaElement.player.options.startLanguage = selectedLang;
 
-      $(this.mediaElement).find('track').remove();
-      $(this.mediaElement).append(Handlebars.partials.mediaTracks(itemCfg._media.cc));
+      $mediaElement.find('track').remove();
+      $mediaElement.append(Handlebars.partials.mediaTracks(itemCfg._media.cc));
       this.mediaElement.player.rebuildtracks();
     },
 
