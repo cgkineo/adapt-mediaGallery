@@ -46,7 +46,7 @@ define([
       this.selectItem(0);
     },
 
-    checkCompletion:function() {
+    checkCompletion: function() {
       if (this.model.get('_setCompletionOn') === 'allPlayed' && this.areAllItemsVisited()) {
         this.setCompletionStatus();
       } else if (this.model.get('_setCompletionOn') === 'allEnded' && this.areAllItemsWatched()) {
@@ -54,7 +54,7 @@ define([
       }
     },
 
-    checkCompletionByTranscript:function() {
+    checkCompletionByTranscript: function() {
       if (this.model.get('_originalTranscript')._setCompletionOnView !== true) return;
 
       if (this.areAllItemsWatched()) {
@@ -62,29 +62,29 @@ define([
       }
     },
 
-    areAllItemsVisited:function() {
+    areAllItemsVisited: function() {
       return this.model.get('_items').every(itemCfg => itemCfg._isPlayed);
     },
 
-    areAllItemsWatched:function() {
+    areAllItemsWatched: function() {
       return this.model.get('_items').every(itemCfg => itemCfg._isWatched);
     },
 
-    markItemAsWatched:function() {
+    markItemAsWatched: function() {
       var itemCfg = this.model.get('_items')[this.selectedIndex];
       itemCfg._isWatched = true;
 
       this.checkCompletion();
     },
 
-    markItemAsPlayed:function() {
+    markItemAsPlayed: function() {
       var itemCfg = this.model.get('_items')[this.selectedIndex];
       itemCfg._isPlayed = true;
 
       this.checkCompletion();
     },
 
-    selectItem:function(index) {
+    selectItem: function(index) {
       // get the selected item configuration
       var itemCfg = this.model.get('_items')[index];
       // get the selected element
@@ -125,7 +125,7 @@ define([
       this.mediaElement.player.rebuildtracks();
     },
 
-    playSelection:function() {
+    playSelection: function() {
       var $selectedItem = this.$('.js-mediawithbenefits-item').eq(this.selectedIndex);
 
       this.mediaElement.play();
@@ -133,10 +133,10 @@ define([
       $selectedItem.addClass('is-visited');
     },
 
-    onItemClicked:function(e) {
+    onItemClicked: function(e) {
       var index = $(e.currentTarget).data('index');
 
-      if (this.selectedIndex != index) {
+      if (this.selectedIndex !== index) {
         this.selectItem(index);
       }
 
@@ -152,13 +152,13 @@ define([
       var $buttonText = this.$('.media__transcript-btn-inline .media__transcript-btn-text');
 
       if ($transcriptBodyContainer.hasClass('inline-transcript-open')) {
-        $transcriptBodyContainer.stop(true,true).slideUp(function() {
+        $transcriptBodyContainer.stop(true, true).slideUp(function() {
           $(window).resize();
         }).removeClass('inline-transcript-open');
         $button.attr('aria-expanded', false);
         $buttonText.html(this.model.get('_transcript').inlineTranscriptButton);
       } else {
-        $transcriptBodyContainer.stop(true,true).slideDown(function() {
+        $transcriptBodyContainer.stop(true, true).slideDown(function() {
           $(window).resize();
         }).addClass('inline-transcript-open');
         $button.attr('aria-expanded', true);
@@ -170,7 +170,7 @@ define([
     onExternalTranscriptClicked: function(event) {
       this.markItemAsWatched();
       this.checkCompletionByTranscript();
-    },
+    }
   }, {
     template: 'mediawithbenefits'
   });
