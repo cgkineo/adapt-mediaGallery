@@ -19,6 +19,12 @@
         "_startVolume": "80%",
         "_items": [
             {
+                "title": "Video 1",
+                "subtitle": "Subtitle",
+                "ariaLabel": "Select this to hear from Speaker 1",
+                "_graphic": {
+                    "src": "course/en/video/video1_thumb.png"
+                },
                 "_media": {
                     "mp4": "course/en/video/placeholder.mp4",
                     "poster": "course/en/video/placeholder.jpg",
@@ -32,15 +38,15 @@
                 "_transcript": {
                     "_comment": "_inlineTranscript = Enable item transcript",
                     "_inlineTranscript": true
-                },
-                "_graphic": {
-                    "src": "course/en/video/video1_thumb.png"
-                },
-                "title": "Video 1",
-                "subtitle": "Subtitle",
-                "ariaLabel": "Select this to hear from Speaker 1"
+                }
             },
             {
+                "title": "Video 2",
+                "subtitle": "Subtitle",
+                "ariaLabel": "Select this to hear from Speaker 2",
+                "_graphic": {
+                    "src": "course/en/video/video2_thumb.png"
+                },
                 "_media": {
                     "mp4": "course/en/video/placeholder.mp4",
                     "poster": "course/en/video/placeholder.png",
@@ -54,19 +60,9 @@
                 "_transcript": {
                     "_comment": "_inlineTranscript = Enable item transcript with overrides",
                     "_inlineTranscript": true,
-                    "_externalTranscript": false,
-                    "inlineTranscriptButton": "Transcript",
-                    "inlineTranscriptCloseButton": "Close Transcript",
-                    "inlineTranscriptBody": "Transcript body 2",
-                    "transcriptLinkButton": "Transcript",
-                    "transcriptLink": "assets/transcript.pdf"
-                },
-                "_graphic": {
-                    "src": "course/en/video/video2_thumb.png"
-                },
-                "title": "Video 2",
-                "subtitle": "Subtitle",
-                "ariaLabel": "Select this to hear from Speaker 2"
+                    "inlineTranscriptBody": "Transcript for video 2"
+                }
+
             }
         ],
         "_comment": "_transcript = Global transcript",
@@ -74,11 +70,14 @@
             "_setCompletionOnView": true,
             "_inlineTranscript": true,
             "_externalTranscript": false,
-            "inlineTranscriptButton": "Transcript",
-            "inlineTranscriptCloseButton": "Close Transcript",
+            "inlineTranscriptButton": "Show transcript",
+            "inlineTranscriptCloseButton": "Hide transcript",
             "inlineTranscriptBody": "Transcript body text should go here",
             "transcriptLinkButton": "Transcript",
             "transcriptLink": "assets/transcript.pdf"
+        },
+        "_playerOptions": {
+            "toggleCaptionsButtonWhenOnlyOne": true
         }
     }
 
