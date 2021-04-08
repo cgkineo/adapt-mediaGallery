@@ -143,24 +143,21 @@ define([
       var $buttonText = this.$('.media__transcript-btn-inline .media__transcript-btn-text');
 
       if ($transcriptBodyContainer.hasClass('inline-transcript-open')) {
-        $transcriptBodyContainer.stop(true, true).slideUp(() => {
+        $transcriptBodyContainer.stop(true, true).slideUp(function() {
           $(window).resize();
         }).removeClass('inline-transcript-open');
         $button.attr('aria-expanded', false);
         $buttonText.html(this.model.get('_transcript').inlineTranscriptButton);
-
         return;
       }
 
-      $transcriptBodyContainer.stop(true, true).slideDown(() => {
+      $transcriptBodyContainer.stop(true, true).slideDown(function() {
         $(window).resize();
       }).addClass('inline-transcript-open');
       $button.attr('aria-expanded', true);
       $buttonText.html(this.model.get('_transcript').inlineTranscriptCloseButton);
 
-      if (this.model.get('_transcript')._setCompletionOnView !== false) {
-        this.setCompletionStatus();
-      }
+      this.checkCompletionByTranscript();
     },
 
     onExternalTranscriptClicked: function(event) {
