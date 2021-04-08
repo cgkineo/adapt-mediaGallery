@@ -1,12 +1,8 @@
-# adapt-contrib-mediaWithBenefits
+# adapt-mediaWithBenefits
 
 This component extends the functionality of `adapt-contrib-media` by providing a gallery of videos from which the user can select. Each video can be configured with its own poster image and multi-language closed captioning.
 
 This component supports the same device and browser specification as `adapt-contrib-media` and is accessible. Accordingly it follows a similar configuration (see `example.json`). See the `README` of `adapt-contrib-media` for further details.
-
-# Notes
-
-Gallery buttons require the `fixed` class to prevent `jquery.a11y.js::limitedScrollTo` calling `window.scrollTo`; which causes an unnecessary scroll and prevents the click handlers from working.
 
 # Todo
 
