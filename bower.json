@@ -1,7 +1,7 @@
 {
   "name": "adapt-mediaGallery",
   "version": "1.0.0",
-  "framework": ">=5.3",
+  "framework": ">=5.8",
   "homepage": "https://github.com/cgkineo/adapt-mediaGallery",
   "issues": "https://github.com/cgkineo/adapt-mediaGallery/issues/ ",
   "component": "mediagallery",
@@ -13,7 +13,7 @@
     "adapt-component"
   ],
   "pluginDependencies": {
-    "adapt-contrib-media": ">=5"
+    "adapt-contrib-media": ">=5.1"
   },
   "license": "GPL-3.0"
 }
