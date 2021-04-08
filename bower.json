@@ -1,10 +1,10 @@
 {
   "name": "adapt-mediaGallery",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "framework": ">=5.3",
   "homepage": "https://github.com/cgkineo/adapt-mediaGallery",
   "issues": "https://github.com/cgkineo/adapt-mediaGallery/issues/ ",
-  "component": "mediaGallery",
+  "component": "mediagallery",
   "displayName": "Media Gallery",
   "description": "Extends the functionality of adapt-contrib-media by providing a gallery of videos",
   "main": "/js/adapt-mediaGallery.js",
