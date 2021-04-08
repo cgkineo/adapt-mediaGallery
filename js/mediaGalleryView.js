@@ -2,10 +2,10 @@ define([
   'components/adapt-contrib-media/js/adapt-contrib-media'
 ], function(Media) {
 
-  var MediaWithBenefitsView = Media.view.extend({
+  var MediaGalleryView = Media.view.extend({
 
     className: function() {
-      // keep mediawithbenefits visually consistent with the media component
+      // keep mediaGallery visually consistent with the media component
       var str = Media.view.prototype.className.apply(this, arguments);
       str += ' media__component';
       return str;
@@ -13,7 +13,7 @@ define([
 
     events: function() {
       return _.extend({
-        'click .js-mediawithbenefits-item': 'onItemClicked'
+        'click .js-mediagallery-item': 'onItemClicked'
       }, Media.view.prototype.events);
     },
 
@@ -77,10 +77,10 @@ define([
       // get the selected item configuration
       var itemCfg = this.model.get('_items')[index];
       // get the selected element
-      var $selectedItem = this.$('.js-mediawithbenefits-item').eq(index);
+      var $selectedItem = this.$('.js-mediagallery-item').eq(index);
 
       // update classes
-      this.$('.js-mediawithbenefits-item').removeClass('is-selected');
+      this.$('.js-mediagallery-item').removeClass('is-selected');
       $selectedItem.addClass('is-selected is-visited');
 
       this.selectedIndex = index;
@@ -116,7 +116,7 @@ define([
     },
 
     playSelection: function() {
-      var $selectedItem = this.$('.js-mediawithbenefits-item').eq(this.selectedIndex);
+      var $selectedItem = this.$('.js-mediagallery-item').eq(this.selectedIndex);
 
       this.mediaElement.play();
 
@@ -143,21 +143,24 @@ define([
       var $buttonText = this.$('.media__transcript-btn-inline .media__transcript-btn-text');
 
       if ($transcriptBodyContainer.hasClass('inline-transcript-open')) {
-        $transcriptBodyContainer.stop(true, true).slideUp(function() {
+        $transcriptBodyContainer.stop(true, true).slideUp(() => {
           $(window).resize();
         }).removeClass('inline-transcript-open');
         $button.attr('aria-expanded', false);
         $buttonText.html(this.model.get('_transcript').inlineTranscriptButton);
+
         return;
       }
 
-      $transcriptBodyContainer.stop(true, true).slideDown(function() {
+      $transcriptBodyContainer.stop(true, true).slideDown(() => {
         $(window).resize();
       }).addClass('inline-transcript-open');
       $button.attr('aria-expanded', true);
       $buttonText.html(this.model.get('_transcript').inlineTranscriptCloseButton);
 
-      this.checkCompletionByTranscript();
+      if (this.model.get('_transcript')._setCompletionOnView !== false) {
+        this.setCompletionStatus();
+      }
     },
 
     onExternalTranscriptClicked: function(event) {
@@ -166,9 +169,9 @@ define([
     }
 
   }, {
-    template: 'mediawithbenefits'
+    template: 'mediagallery'
   });
 
-  return MediaWithBenefitsView;
+  return MediaGalleryView;
 
 });

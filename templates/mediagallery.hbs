@@ -5,28 +5,28 @@
 
   <div class="component__widget media__widget">
 
-    <div class="mediawithbenefits__item-container">
+    <div class="mediagallery__item-container">
 
       {{#each _items}}
-      <button id="{{../_id}}-{{@index}}-mwb-item" class="mediawithbenefits__item js-mediawithbenefits-item{{#if _isVisited}} is-visited{{/if}}" data-index="{{@index}}" aria-label="{{ariaLabel}}">
+      <button id="{{../_id}}-{{@index}}-mediagallery-item" class="mediagallery__item js-mediagallery-item{{#if _isVisited}} is-visited{{/if}}" data-index="{{@index}}" aria-label="{{ariaLabel}}">
 
         {{#if _graphic.src}}
-        <div class="mediawithbenefits__item-image-container">
-          <img class="mediawithbenefits__item-image" src="{{_graphic.src}}">
+        <div class="mediagallery__item-image-container">
+          <img class="mediagallery__item-image" src="{{_graphic.src}}">
         </div>
         {{/if}}
 
         {{#if title}}
-        <div class="mediawithbenefits__item-title">
-          <div class="mediawithbenefits__item-title-inner">
+        <div class="mediagallery__item-title">
+          <div class="mediagallery__item-title-inner">
             {{{title}}}
           </div>
         </div>
         {{/if}}
 
         {{#if subtitle}}
-        <div class="mediawithbenefits__item-subtitle">
-          <div class="mediawithbenefits__item-subtitle-inner">
+        <div class="mediagallery__item-subtitle">
+          <div class="mediagallery__item-subtitle-inner">
             {{{subtitle}}}
           </div>
         </div>

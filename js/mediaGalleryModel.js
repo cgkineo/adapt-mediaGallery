@@ -2,7 +2,7 @@ define([
   'core/js/models/componentModel'
 ], function(ComponentModel) {
 
-  var MediaWithBenefitsModel = ComponentModel.extend({
+  var MediaGalleryModel = ComponentModel.extend({
 
     init: function() {
       this.set({
@@ -13,6 +13,6 @@ define([
 
   });
 
-  return MediaWithBenefitsModel;
+  return MediaGalleryModel;
 
 });
