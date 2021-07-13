@@ -2,85 +2,86 @@ define([
   'components/adapt-contrib-media/js/adapt-contrib-media'
 ], function(Media) {
 
-  var MediaWithBenefitsView = Media.view.extend({
+  class MediaGalleryView extends Media.view {
 
-    className: function() {
-      // keep mediawithbenefits visually consistent with the media component
-      var str = Media.view.prototype.className.apply(this, arguments);
+    className() {
+      // keep mediaGallery visually consistent with the media component
+      let str = super.className();
       str += ' media__component';
       return str;
-    },
+    }
 
-    events: function() {
-      return _.extend({
-        'click .js-mediawithbenefits-item': 'onItemClicked'
-      }, Media.view.prototype.events);
-    },
+    events () {
+      return {
+        ...super.events(),
+        'click .js-mediagallery-item': 'onItemClicked'
+      };
+    }
 
-    onMediaElementPlay: function() {
-      Media.view.prototype.onMediaElementPlay.apply(this, arguments);
+    onMediaElementPlay(...args) {
+      super.onMediaElementPlay(...args);
 
       this.markItemAsPlayed();
-    },
+    }
 
-    onMediaElementEnded: function() {
-      Media.view.prototype.onMediaElementEnded.apply(this, arguments);
+    onMediaElementEnded(...args) {
+      super.onMediaElementEnded(...args);
 
       this.markItemAsWatched();
-    },
+    }
 
-    onPlayerReady: function() {
-      Media.view.prototype.onPlayerReady.apply(this, arguments);
+    onPlayerReady(...args) {
+      super.onPlayerReady(...args);
 
       this.selectItem(0);
-    },
+    }
 
-    checkCompletion: function() {
+    checkCompletion() {
       if (this.model.get('_setCompletionOn') === 'allPlayed' && this.areAllItemsVisited()) {
         this.setCompletionStatus();
       } else if (this.model.get('_setCompletionOn') === 'allEnded' && this.areAllItemsWatched()) {
         this.setCompletionStatus();
       }
-    },
+    }
 
-    checkCompletionByTranscript: function() {
+    checkCompletionByTranscript() {
       if (this.model.get('_originalTranscript')._setCompletionOnView !== true) return;
 
       if (this.areAllItemsWatched()) {
         this.setCompletionStatus();
       }
-    },
+    }
 
-    areAllItemsVisited: function() {
+    areAllItemsVisited() {
       return this.model.get('_items').every(itemCfg => itemCfg._isPlayed);
-    },
+    }
 
-    areAllItemsWatched: function() {
+    areAllItemsWatched() {
       return this.model.get('_items').every(itemCfg => itemCfg._isWatched);
-    },
+    }
 
-    markItemAsWatched: function() {
-      var itemCfg = this.model.get('_items')[this.selectedIndex];
+    markItemAsWatched() {
+      const itemCfg = this.model.get('_items')[this.selectedIndex];
       itemCfg._isWatched = true;
 
       this.checkCompletion();
-    },
+    }
 
-    markItemAsPlayed: function() {
-      var itemCfg = this.model.get('_items')[this.selectedIndex];
+    markItemAsPlayed() {
+      const itemCfg = this.model.get('_items')[this.selectedIndex];
       itemCfg._isPlayed = true;
 
       this.checkCompletion();
-    },
+    }
 
-    selectItem: function(index) {
+    selectItem(index) {
       // get the selected item configuration
-      var itemCfg = this.model.get('_items')[index];
+      const itemCfg = this.model.get('_items')[index];
       // get the selected element
-      var $selectedItem = this.$('.js-mediawithbenefits-item').eq(index);
+      const $selectedItem = this.$('.js-mediagallery-item').eq(index);
 
       // update classes
-      this.$('.js-mediawithbenefits-item').removeClass('is-selected');
+      this.$('.js-mediagallery-item').removeClass('is-selected');
       $selectedItem.addClass('is-selected is-visited');
 
       this.selectedIndex = index;
@@ -91,7 +92,7 @@ define([
 
       // set up transcript
       if (itemCfg._transcript) {
-        this.model.set('_transcript', _.extend({}, this.model.get('_originalTranscript'), itemCfg._transcript));
+        this.model.set('_transcript', { ...this.model.get('_originalTranscript'), ...itemCfg._transcript });
         this.$('.media__transcript-container').html(Handlebars.partials.transcript(this.model.toJSON()));
       } else {
         this.model.unset('_transcript');
@@ -113,37 +114,37 @@ define([
       $mediaElement.find('track').remove();
       $mediaElement.append(Handlebars.partials.mediaTracks(itemCfg._media.cc));
       this.mediaElement.player.rebuildtracks();
-    },
+    }
 
-    playSelection: function() {
-      var $selectedItem = this.$('.js-mediawithbenefits-item').eq(this.selectedIndex);
+    playSelection() {
+      var $selectedItem = this.$('.js-mediagallery-item').eq(this.selectedIndex);
 
       this.mediaElement.play();
 
       $selectedItem.addClass('is-visited');
-    },
+    }
 
-    onItemClicked: function(e) {
-      var index = $(e.currentTarget).data('index');
+    onItemClicked(e) {
+      const index = $(e.currentTarget).data('index');
 
       if (this.selectedIndex !== index) {
         this.selectItem(index);
       }
 
       this.playSelection();
-    },
+    }
 
-    onToggleInlineTranscript: function(event) {
+    onToggleInlineTranscript(event) {
       this.markItemAsWatched();
 
       if (event && event.preventDefault) event.preventDefault();
 
-      var $transcriptBodyContainer = this.$('.media__transcript-body-inline');
-      var $button = this.$('.media__transcript-btn-inline');
-      var $buttonText = this.$('.media__transcript-btn-inline .media__transcript-btn-text');
+      const $transcriptBodyContainer = this.$('.media__transcript-body-inline');
+      const $button = this.$('.media__transcript-btn-inline');
+      const $buttonText = this.$('.media__transcript-btn-inline .media__transcript-btn-text');
 
       if ($transcriptBodyContainer.hasClass('inline-transcript-open')) {
-        $transcriptBodyContainer.stop(true, true).slideUp(function() {
+        $transcriptBodyContainer.stop(true, true).slideUp(() => {
           $(window).resize();
         }).removeClass('inline-transcript-open');
         $button.attr('aria-expanded', false);
@@ -151,24 +152,24 @@ define([
         return;
       }
 
-      $transcriptBodyContainer.stop(true, true).slideDown(function() {
+      $transcriptBodyContainer.stop(true, true).slideDown(() => {
         $(window).resize();
       }).addClass('inline-transcript-open');
       $button.attr('aria-expanded', true);
       $buttonText.html(this.model.get('_transcript').inlineTranscriptCloseButton);
 
       this.checkCompletionByTranscript();
-    },
+    }
 
-    onExternalTranscriptClicked: function(event) {
+    onExternalTranscriptClicked(event) {
       this.markItemAsWatched();
       this.checkCompletionByTranscript();
     }
 
-  }, {
-    template: 'mediawithbenefits'
-  });
+  }
 
-  return MediaWithBenefitsView;
+  MediaGalleryView.template = 'mediagallery';
+
+  return MediaGalleryView;
 
 });

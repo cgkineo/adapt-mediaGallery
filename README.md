@@ -1,4 +1,4 @@
-# adapt-mediaWithBenefits
+# adapt-mediaGallery
 
 This component extends the functionality of `adapt-contrib-media` by providing a gallery of videos from which the user can select. Each video can be configured with its own poster image and multi-language closed captioning.
 
