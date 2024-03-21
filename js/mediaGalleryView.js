@@ -7,7 +7,7 @@ class MediaGalleryView extends Media.view {
   className() {
     // keep mediaGallery visually consistent with the media component
     let str = super.className();
-    str += ' media__component';
+    str += ' media';
     return str;
   }
 
@@ -32,7 +32,10 @@ class MediaGalleryView extends Media.view {
 
   onPlayerReady(...args) {
     super.onPlayerReady(...args);
-    this.selectItem(0);
+
+    _.delay(() => {
+      this.selectItem(0);
+    }, 250);
   }
 
   checkCompletion() {
@@ -83,18 +86,16 @@ class MediaGalleryView extends Media.view {
     this.$('.js-mediagallery-item').removeClass('is-selected');
     $selectedItem.addClass('is-selected is-visited');
 
+    this.selectedIndex = index;
+
     // TODO: add support for Youtube/Vimeo sources
     this.mediaElement.setSrc(itemCfg._media.mp4);
     this.mediaElement.load();
 
-    if (this.selectedIndex !== undefined) {
-      const $mediaElement = $(this.mediaElement);
-      $mediaElement.find('track').remove();
-      $mediaElement.append(Handlebars.partials.mediaTracks(itemCfg._media.cc));
-      this.mediaElement.player.rebuildtracks();
-    }
-
-    this.selectedIndex = index;
+    const $mediaElement = $(this.mediaElement);
+    $mediaElement.find('track').remove();
+    $mediaElement.append(Handlebars.partials.mediaTracks(itemCfg._media.cc));
+    this.mediaElement.player.rebuildtracks();
 
     if (itemCfg._transcript) {
       this.model.set('_transcript', { ...this.model.get('_originalTranscript'), ...itemCfg._transcript });
