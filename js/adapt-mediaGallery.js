@@ -1,12 +1,8 @@
-define([
-  'core/js/adapt',
-  './mediaGalleryModel.js',
-  './mediaGalleryView.js'
-], function(Adapt, MediaGalleryModel, MediaGalleryView) {
+import components from 'core/js/components';
+import MediaGalleryView from './mediaGalleryView';
+import MediaGalleryModel from './mediaGalleryModel';
 
-  return Adapt.register('mediagallery', {
-    model: MediaGalleryModel,
-    view: MediaGalleryView
-  });
-
+export default components.register('mediagallery', {
+  model: MediaGalleryModel,
+  view: MediaGalleryView
 });
