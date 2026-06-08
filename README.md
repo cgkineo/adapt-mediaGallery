@@ -71,8 +71,8 @@ The issues below are all present in `adapt-contrib-media` and some are ultimatel
 
 ----------------------------
 **Version number:**  1.0.0<br/>
-**Framework versions:**  5.8+<br/>
-**Author / maintainer:** Kineo<br/>
-**Accessibility support:** TBC<br/>
-**RTL support:** TBC<br/>
-**Cross-platform coverage:** Chrome, Chrome for Android, Firefox (ESR + latest version), Edge, IE11, Safari 14 for macOS/iOS/iPadOS, Opera<br/>
+**Framework versions:**  5.8+<br>
+**Author / maintainer:** Mindtools Kineo<br>
+**Accessibility support:** TBC<br>
+**RTL support:** TBC<br>
+**Cross-platform coverage:** Chrome, Chrome for Android, Firefox (ESR + latest version), Edge, Safari for macOS/iOS/iPadOS, Opera<br>
