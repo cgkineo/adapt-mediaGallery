@@ -5,7 +5,7 @@
     "url": "git://github.com/cgkineo/adapt-mediaGallery.git"
   },
   "framework": ">=5.8",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "https://github.com/cgkineo/adapt-mediaGallery",
   "issues": "https://github.com/cgkineo/adapt-mediaGallery/issues",
   "component": "mediagallery",
