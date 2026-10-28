@@ -11,11 +11,18 @@ class MediaGalleryView extends Media.view {
     return str;
   }
 
-  events () {
-    return {
-      ...super.events(),
-      'click .js-mediagallery-item': 'onItemClicked'
-    };
+  events() {
+    // the template binds its own click handlers, so stop older media versions
+    // from also binding their transcript handlers to the same buttons
+    return {};
+  }
+
+  preRender() {
+    super.preRender();
+
+    _.bindAll(this, 'onItemClicked', 'onToggleInlineTranscript', 'onExternalTranscriptClicked');
+
+    this.model.set('_isInlineTranscriptOpen', false);
   }
 
   onMediaElementPlay(...args) {
@@ -79,12 +86,7 @@ class MediaGalleryView extends Media.view {
   selectItem(index) {
     // get the selected item configuration
     const itemCfg = this.model.get('_items')[index];
-    // get the selected element
-    const $selectedItem = this.$('.js-mediagallery-item').eq(index);
-
-    // update classes
-    this.$('.js-mediagallery-item').removeClass('is-selected');
-    $selectedItem.addClass('is-selected is-visited');
+    itemCfg._isVisited = true;
 
     this.selectedIndex = index;
 
@@ -92,27 +94,51 @@ class MediaGalleryView extends Media.view {
     this.mediaElement.setSrc(itemCfg._media.mp4);
     this.mediaElement.load();
 
-    const $mediaElement = $(this.mediaElement);
-    $mediaElement.find('track').remove();
-    $mediaElement.append(Handlebars.partials.mediaTracks(itemCfg._media.cc));
-    this.mediaElement.player.rebuildtracks();
+    this.updateTracks(itemCfg._media.cc);
 
     if (itemCfg._transcript) {
       this.model.set('_transcript', { ...this.model.get('_originalTranscript'), ...itemCfg._transcript });
-      this.$('.media__transcript-container').html(Handlebars.partials.transcript(this.model.toJSON()));
     } else {
       this.model.unset('_transcript');
-      this.$('.media__transcript-container').empty();
     }
 
+    // re-renders the item classes and resets the transcript for the new item
+    this.model.set({
+      _selectedIndex: index,
+      _isInlineTranscriptOpen: false
+    });
+  }
+
+  updateTracks(cc = []) {
+    const player = this.mediaElementInstance || this.mediaElement.player;
+    // mediaelement owns the video, so its tracks are swapped here rather than in the template
+    const $video = $(player.node || this.mediaElement);
+    $video.find('track').remove();
+    $video.append(cc.map(({ src, srclang }) => $('<track>', {
+      kind: 'subtitles',
+      src,
+      type: 'text/vtt',
+      srclang
+    })));
+
+    // mediaelement 2 (adapt-contrib-media < v7)
+    if (player.rebuildtracks) return player.rebuildtracks();
+
+    // mediaelement 7 has no rebuildtracks, so rescan the tracks and rebuild the
+    // captions button. Its addControlElement fails when the button was first in
+    // the controls, so append the new button and move it to the old one's place
+    const oldButton = player.captionsButton;
+    const nextSibling = oldButton?.parentNode && oldButton.nextSibling;
+    const position = player.featurePosition.tracks;
+    delete player.featurePosition.tracks;
+    player.trackFiles = null;
+    player.buildtracks(player, player.controls, player.layers, player.media);
+    if (nextSibling && player.captionsButton) nextSibling.before(player.captionsButton);
+    if (position !== undefined) player.featurePosition.tracks = position;
   }
 
   playSelection() {
-    const $selectedItem = this.$('.js-mediagallery-item').eq(this.selectedIndex);
-
     this.mediaElement.play();
-
-    $selectedItem.addClass('is-visited');
   }
 
   onItemClicked(e) {
@@ -130,35 +156,33 @@ class MediaGalleryView extends Media.view {
 
     if (event && event.preventDefault) event.preventDefault();
 
-    const $transcriptBodyContainer = this.$('.media__transcript-body-inline');
-    const $button = this.$('.media__transcript-btn-inline');
-    const $buttonText = this.$('.media__transcript-btn-inline .media__transcript-btn-text');
+    const isOpen = this.model.get('_isInlineTranscriptOpen');
+    this.model.set('_isInlineTranscriptOpen', !isOpen);
 
-    if ($transcriptBodyContainer.hasClass('inline-transcript-open')) {
-      $transcriptBodyContainer.stop(true, true).slideUp(() => {
+    const $transcriptBodyContainer = this.$('.media__transcript-body-inline').stop(true, true);
+
+    if (isOpen) {
+      $transcriptBodyContainer.slideUp(() => {
         $(window).resize();
-      }).removeClass('inline-transcript-open');
-      $button.attr('aria-expanded', false);
-      $buttonText.html(this.model.get('_transcript').inlineTranscriptButton);
+      });
       return;
     }
 
-    $transcriptBodyContainer.stop(true, true).slideDown(() => {
+    $transcriptBodyContainer.slideDown(() => {
       $(window).resize();
-    }).addClass('inline-transcript-open');
-    $button.attr('aria-expanded', true);
-    $buttonText.html(this.model.get('_transcript').inlineTranscriptCloseButton);
+    });
 
     this.checkCompletionByTranscript();
   }
 
   onExternalTranscriptClicked(event) {
+    window.open(this.model.get('_transcript').transcriptLink);
     this.markItemAsWatched();
     this.checkCompletionByTranscript();
   }
 
 }
 
-MediaGalleryView.template = 'mediagallery';
+MediaGalleryView.template = 'mediagallery.jsx';
 
 export default MediaGalleryView;
